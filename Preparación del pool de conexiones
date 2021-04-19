@@ -1,0 +1,25 @@
+Server GlassFish
+1->Pool a la base de datos localhost:4848 / otra opción es desde el IDE, accedes al server, click derecho -> View Domain Admin Console
+2->Seleccionamos JDBC ->JDBC CONNECTION POOLS
+3->Creamos uno nuevo ->Resource ConnectionPoolDataSource -> Database Drive Vendor ->MySql ->Seleccionamos next
+4-> Descendemos hasta el panel de Additional Properties y cambiamos unos valores:
+	User = root
+	servername = localhost
+	port =  3306 (si usas otro especificalo aqui)
+	url y URL = indicamos la direccion de nuestra bbdd en mi caso es jdbc:mysql://:3306/PROTOTIPO
+	password 123456 (tendrás que añadir la pass en tu root (grant all privileges on *.* to root@'localhost' identified by '123456' with grant option;)
+	DatabaseName = PROTOTIPO
+5->Add property name = driverClass value= com.mysql.jdbc.Driver y finish
+6-> Testeamos que está todo bien:
+	Entramos de nuevo a nuestro pool
+	Seleccionamos sobre ping, nos saldrá un mensaje indicando que todo está bien.+
+
+7-> Con el pool creado, accedemos ahora a JDBC Resources para hacer referencia al pool.
+	JNDI name = jdbc/prime
+	Pool name = Prototipo
+
+8->Volvemos al IDE New- Persistence Unit (Esto no debería ser necesario ya que se genera como archivo xml, pero por si te preguntan)
+	NAME= primePU
+	Persistence provider dejamos ElicpseLink
+	DataSource jdbc/prime (debería salir en el desplegable)
+	
